@@ -1,23 +1,28 @@
-package com.vocco.api.domain.estudante.dto;
+package com.vocco.api.domain.administrador.dto;
 
-import com.vocco.api.domain.estudante.NivelEscolar;
+import com.vocco.api.domain.endereco.DadosEndereco;
+import com.vocco.api.domain.endereco.Endereco;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDate;
 
-public record DadosCadastroEstudante(
+public record DadosCadastroAdministrador(
+
         @NotBlank
         String nome,
+        @NotBlank
+        String cpf,
         @NotBlank
         @Email
         String email,
         @NotBlank
         String senha,
         @NotBlank
-        LocalDate dataNascimento,
+        String cargo,
         @NotBlank
         String celular,
         @NotNull
-        NivelEscolar nivelEscolar) {
+        @Valid
+        DadosEndereco endereco ) {
 }

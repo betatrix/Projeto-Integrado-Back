@@ -1,13 +1,12 @@
-package com.vocco.api.domain.estudante;
+package com.vocco.api.domain.administrador;
 
+import com.vocco.api.domain.administrador.dto.DadosAtualizacaoAdministrador;
+import com.vocco.api.domain.administrador.dto.DadosCadastroAdministrador;
 import com.vocco.api.domain.endereco.Endereco;
-import com.vocco.api.domain.estudante.dto.DadosAtualizacaoEstudante;
-import com.vocco.api.domain.estudante.dto.DadosCadastroEstudante;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -16,34 +15,37 @@ import java.util.function.Consumer;
 @NoArgsConstructor
 @Entity
 @Table
-public class Estudante {
+public class Administrador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+    private String cpf;
     private String email;
     private String senha;
-    private LocalDate dataNascimento;
+    private String cargo;
     private String celular;
-    private Boolean ativo;
+    @Embedded
+    private Endereco endereco;
 
-    @Enumerated(EnumType.STRING)
-    private NivelEscolar nivelEscolar;
 
-    public Estudante(DadosCadastroEstudante dados){
+    public Administrador(DadosCadastroAdministrador dados){
         this.nome = dados.nome();
+        this.cpf = dados.cpf();
         this.email = dados.email();
         this.senha = dados.senha();
-        this.dataNascimento = dados.dataNascimento();
+        this.cargo = dados.cargo();
         this.celular = dados.celular();
-        this.nivelEscolar = dados.nivelEscolar();
+        this.endereco = new Endereco(dados.endereco());
     }
-    public void editarInformacoes(DadosAtualizacaoEstudante dados){
+
+    public void editarInformacoes(DadosAtualizacaoAdministrador dados){
         atribuirSeNaoForNulo(dados.nome(), this::setNome);
+        atribuirSeNaoForNulo(dados.cpf(), this::setCpf);
         atribuirSeNaoForNulo(dados.email(), this::setEmail);
-        atribuirSeNaoForNulo(dados.dataNascimento(), this::setDataNascimento);
+        atribuirSeNaoForNulo(dados.cargo(), this::setCargo);
         atribuirSeNaoForNulo(dados.celular(), this::setCelular);
-        atribuirSeNaoForNulo(dados.nivelEscolar(), this::setNivelEscolar);
     }
 
     private <T> void atribuirSeNaoForNulo(T valor, Consumer<T> setter){
@@ -51,6 +53,5 @@ public class Estudante {
             setter.accept(valor);
         }
     }
-
 
 }

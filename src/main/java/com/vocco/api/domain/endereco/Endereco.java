@@ -1,0 +1,47 @@
+package com.vocco.api.domain.endereco;
+
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import java.util.Objects;
+import java.util.function.Consumer;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@Embeddable
+public class Endereco {
+
+    private String cep;
+    private String logradouro;
+    private String estado;
+    private String cidade;
+    private String numero;
+    private String complemento;
+
+    public Endereco(DadosEndereco dados){
+        this.cep = dados.cep();
+        this.logradouro = dados.logradouro();
+        this.estado = dados.estado();
+        this.cidade = dados.cidade();
+        this.numero = dados.numero();
+        this.complemento = dados.complemento();
+    }
+
+    public void editarInformacoes(DadosEndereco dados){
+        atribuirSeNaoForNulo(dados.cep(), this::setCep);
+        atribuirSeNaoForNulo(dados.logradouro(), this::setLogradouro);
+        atribuirSeNaoForNulo(dados.estado(), this::setEstado);
+        atribuirSeNaoForNulo(dados.cidade(), this::setCidade);
+        atribuirSeNaoForNulo(dados.numero(), this::setNumero);
+        atribuirSeNaoForNulo(dados.complemento(), this::setComplemento);
+    }
+
+    private <T> void atribuirSeNaoForNulo(T valor, Consumer<T> setter){
+        if (Objects.nonNull(valor) && !valor.toString().trim().isEmpty()) {
+            setter.accept(valor);
+        }
+    }
+
+}
