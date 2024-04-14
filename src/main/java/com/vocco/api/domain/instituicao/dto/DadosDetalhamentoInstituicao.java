@@ -9,10 +9,11 @@ public record DadosDetalhamentoInstituicao(
         String nome,
         String sigla,
         String site,
-        BigDecimal notaMec
+        BigDecimal notaMec,
+        Boolean ativo
         //falta endereco
 ) {
     public DadosDetalhamentoInstituicao(Instituicao instituicao){
-        this(instituicao.getId(), instituicao.getNome(), instituicao.getSigla(), instituicao.getSite(), instituicao.getNotaMec());
+        this(instituicao.getId(), instituicao.getNome(), instituicao.getSigla(), instituicao.getSite(), instituicao.getNotaMec(), instituicao.getAtivo());
     }
 }

@@ -25,6 +25,7 @@ public class Instituicao {
     private String site;
     private BigDecimal notaMec;
     private String sigla;
+    private Boolean ativo;
     //Falta endereco
 
     public Instituicao(DadosCadastroInstituicao dados){
@@ -32,6 +33,7 @@ public class Instituicao {
         this.site = dados.site();
         this.notaMec = dados.notaMec();
         this.sigla = dados.sigla();
+        this.ativo = true;
     }
 
     public void editarInformacoes(DadosAtualizacaoInstituicao dados){
@@ -41,9 +43,17 @@ public class Instituicao {
         atribuirSeForNaoNulo(dados.sigla(), this::setSigla);
     }
 
+    public void excluir(){
+        this.ativo = false;
+    }
+
     private <T> void atribuirSeForNaoNulo(T valor, Consumer<T> setter) {
         if (Objects.nonNull(valor) && !valor.toString().trim().isEmpty()) {
             setter.accept(valor);
         }
+    }
+
+    public boolean isAtivo() {
+        return ativo;
     }
 }

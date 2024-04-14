@@ -32,6 +32,12 @@ public class InstituicaoService {
     }
 
     public List<DadosListagemInstituicao> listar(){
-        return repository.findAll().stream().map(DadosListagemInstituicao::new).toList();
+        return repository.findAllByAtivoTrue().stream().map(DadosListagemInstituicao::new).toList();
+    }
+
+    public void excluir(Long id){
+        Instituicao instituicao = repository.getReferenceById(id);
+        instituicao.excluir();
+        repository.save(instituicao);
     }
 }

@@ -43,4 +43,11 @@ public class InstituicaoController {
     public ResponseEntity<List<DadosListagemInstituicao>> listar(){
         return ResponseEntity.ok().body(service.listar());
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> excluir(Long id) {
+        service.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
 }
