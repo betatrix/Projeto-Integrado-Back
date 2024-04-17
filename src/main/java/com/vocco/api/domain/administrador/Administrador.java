@@ -28,6 +28,7 @@ public class Administrador {
     private String celular;
     @Embedded
     private Endereco endereco;
+    private Boolean ativo;
 
 
     public Administrador(DadosCadastroAdministrador dados){
@@ -54,4 +55,11 @@ public class Administrador {
         }
     }
 
+    public void excluir(){
+        this.ativo = false;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
 }

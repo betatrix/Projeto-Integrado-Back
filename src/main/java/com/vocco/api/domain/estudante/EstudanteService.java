@@ -31,6 +31,6 @@ public class EstudanteService {
     }
 
     public List<DadosListagemEstudante> listar(){
-        return repository.findAll().stream().map(DadosListagemEstudante::new).toList();
+        return repository.findAllByAtivoTrue().stream().map(DadosListagemEstudante::new).toList();
     }
 }

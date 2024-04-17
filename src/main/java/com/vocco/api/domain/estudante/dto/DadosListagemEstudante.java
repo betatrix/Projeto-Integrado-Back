@@ -2,9 +2,6 @@ package com.vocco.api.domain.estudante.dto;
 
 import com.vocco.api.domain.estudante.Estudante;
 import com.vocco.api.domain.estudante.NivelEscolar;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-
 import java.time.LocalDate;
 
 public record DadosListagemEstudante(

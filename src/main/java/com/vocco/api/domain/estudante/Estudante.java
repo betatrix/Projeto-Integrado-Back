@@ -52,5 +52,13 @@ public class Estudante {
         }
     }
 
+    public void excluir(){
+        this.ativo = false;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
 
 }

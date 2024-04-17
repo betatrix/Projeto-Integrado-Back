@@ -6,7 +6,6 @@ import com.vocco.api.domain.administrador.dto.DadosDetalhamentoAdministrador;
 import com.vocco.api.domain.administrador.dto.DadosListagemAdministrador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -32,6 +31,6 @@ public class AdministradorService {
     }
 
     public List<DadosListagemAdministrador> listar(){
-        return repository.findAll().stream().map(DadosListagemAdministrador::new).toList();
+        return repository.findAllByAtivoTrue().stream().map(DadosListagemAdministrador::new).toList();
     }
 }
