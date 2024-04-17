@@ -1,8 +1,8 @@
-package com.vocco.api.domain.endereco;
+package com.vocco.api.domain.endereco.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record DadosEndereco(
+public record DadosCadastroEndereco(
         @NotBlank
         String cep,
         @NotBlank

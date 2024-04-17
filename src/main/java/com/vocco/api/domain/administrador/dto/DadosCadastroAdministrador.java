@@ -1,7 +1,6 @@
 package com.vocco.api.domain.administrador.dto;
 
-import com.vocco.api.domain.endereco.DadosEndereco;
-import com.vocco.api.domain.endereco.Endereco;
+import com.vocco.api.domain.endereco.dto.DadosCadastroEndereco;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -24,5 +23,5 @@ public record DadosCadastroAdministrador(
         String celular,
         @NotNull
         @Valid
-        DadosEndereco endereco ) {
+        DadosCadastroEndereco endereco ) {
 }
