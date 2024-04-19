@@ -22,6 +22,9 @@ public class AdministradorService {
     public DadosDetalhamentoAdministrador editar(DadosAtualizacaoAdministrador dados){
         Administrador administrador = repository.getReferenceById(dados.id());
         administrador.editarInformacoes(dados);
+        if (dados.endereco() != null){
+            administrador.getEndereco().editarInformacoes(dados.endereco());
+        }
         repository.save(administrador);
         return new DadosDetalhamentoAdministrador(administrador);
     }

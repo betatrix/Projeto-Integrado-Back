@@ -23,6 +23,9 @@ public class InstituicaoService {
     public DadosDetalhamentoInstituicao editar(DadosAtualizacaoInstituicao dados){
         Instituicao instituicao = repository.getReferenceById(dados.id());
         instituicao.editarInformacoes(dados);
+        if (dados.endereco() != null){
+            instituicao.getEndereco().editarInformacoes(dados.endereco());
+        }
         repository.save(instituicao);
         return new DadosDetalhamentoInstituicao(instituicao);
     }

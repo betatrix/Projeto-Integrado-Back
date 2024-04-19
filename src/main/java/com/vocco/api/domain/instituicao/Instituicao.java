@@ -1,5 +1,6 @@
 package com.vocco.api.domain.instituicao;
 
+import com.vocco.api.domain.endereco.Endereco;
 import com.vocco.api.domain.instituicao.dto.DadosAtualizacaoInstituicao;
 import com.vocco.api.domain.instituicao.dto.DadosCadastroInstituicao;
 import jakarta.persistence.*;
@@ -26,7 +27,8 @@ public class Instituicao {
     private BigDecimal notaMec;
     private String sigla;
     private Boolean ativo;
-    //Falta endereco
+    @Embedded
+    private Endereco endereco;
 
     public Instituicao(DadosCadastroInstituicao dados){
         this.nome = dados.nome();
@@ -34,6 +36,7 @@ public class Instituicao {
         this.notaMec = dados.notaMec();
         this.sigla = dados.sigla();
         this.ativo = true;
+        this.endereco = new Endereco(dados.endereco());
     }
 
     public void editarInformacoes(DadosAtualizacaoInstituicao dados){

@@ -38,6 +38,7 @@ public class Administrador {
         this.senha = dados.senha();
         this.cargo = dados.cargo();
         this.celular = dados.celular();
+        this.ativo = true;
         this.endereco = new Endereco(dados.endereco());
     }
 

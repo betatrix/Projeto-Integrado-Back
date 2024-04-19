@@ -41,12 +41,12 @@ public class CursoInstituicaoController {
     }
 
     @GetMapping("/instituicao/{id}")
-    public ResponseEntity<List<DadosDetalhamentoCurso>> buscarCursosPorInstituicao(Long id) {
+    public ResponseEntity<List<DadosDetalhamentoCurso>> buscarCursosPorInstituicao(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.buscarCursosPorInstituicao(id));
     }
 
     @GetMapping("/curso/{id}")
-    public ResponseEntity<List<DadosDetalhamentoInstituicao>> buscarInstituicoesPorCurso(Long id) {
+    public ResponseEntity<List<DadosDetalhamentoInstituicao>> buscarInstituicoesPorCurso(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.buscarInstituicoesPorCurso(id));
     }
 

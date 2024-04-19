@@ -1,9 +1,11 @@
 package com.vocco.api.domain.endereco;
 
+import com.vocco.api.domain.endereco.dto.DadosAtualizacaoEndereco;
 import com.vocco.api.domain.endereco.dto.DadosCadastroEndereco;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -11,6 +13,7 @@ import java.util.function.Consumer;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class Endereco {
 
@@ -30,7 +33,7 @@ public class Endereco {
         this.complemento = dados.complemento();
     }
 
-    public void editarInformacoes(DadosCadastroEndereco dados){
+    public void editarInformacoes(DadosAtualizacaoEndereco dados){
         atribuirSeNaoForNulo(dados.cep(), this::setCep);
         atribuirSeNaoForNulo(dados.logradouro(), this::setLogradouro);
         atribuirSeNaoForNulo(dados.estado(), this::setEstado);

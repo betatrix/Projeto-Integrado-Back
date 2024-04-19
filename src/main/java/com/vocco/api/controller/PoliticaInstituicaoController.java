@@ -34,18 +34,18 @@ public class PoliticaInstituicaoController {
     }
 
     @GetMapping("/instituicao/{id}")
-    public ResponseEntity<List<DadosDetalhamentoPolitica>> buscarPoliticasPorInstituicao(Long id) {
+    public ResponseEntity<List<DadosDetalhamentoPolitica>> buscarPoliticasPorInstituicao(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.buscarPoliticasPorInstituicao(id));
     }
 
     @GetMapping("/politica/{id}")
-    public ResponseEntity<List<DadosListagemInstituicao>> buscarInstituicoesPorPolitica(Long id) {
+    public ResponseEntity<List<DadosListagemInstituicao>> buscarInstituicoesPorPolitica(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.buscarInstituicoesPorPolitica(id));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> excluir(Long id) {
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
         service.excluir(id);
         return ResponseEntity.noContent().build();
     }

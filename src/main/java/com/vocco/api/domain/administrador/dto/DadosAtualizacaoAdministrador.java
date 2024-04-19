@@ -1,6 +1,6 @@
 package com.vocco.api.domain.administrador.dto;
 
-import com.vocco.api.domain.endereco.Endereco;
+import com.vocco.api.domain.endereco.dto.DadosAtualizacaoEndereco;
 
 public record DadosAtualizacaoAdministrador(
         Long id,
@@ -9,5 +9,5 @@ public record DadosAtualizacaoAdministrador(
         String email,
         String cargo,
         String celular,
-        Endereco endereco) {
+        DadosAtualizacaoEndereco endereco) {
 }

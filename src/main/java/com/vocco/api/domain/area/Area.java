@@ -25,6 +25,7 @@ public class Area {
 
     public Area (DadosCadastroArea dados){
         this.descricao = dados.descricao();
+        this.ativo = true;
     }
 
     public void editarInformacoes(DadosAtualizacaoArea dados){

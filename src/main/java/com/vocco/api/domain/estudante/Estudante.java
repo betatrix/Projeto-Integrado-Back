@@ -37,6 +37,7 @@ public class Estudante {
         this.dataNascimento = dados.dataNascimento();
         this.celular = dados.celular();
         this.nivelEscolar = dados.nivelEscolar();
+        this.ativo = true;
     }
     public void editarInformacoes(DadosAtualizacaoEstudante dados){
         atribuirSeNaoForNulo(dados.nome(), this::setNome);
