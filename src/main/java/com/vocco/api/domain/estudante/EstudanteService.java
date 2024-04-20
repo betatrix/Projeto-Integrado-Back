@@ -33,4 +33,9 @@ public class EstudanteService {
     public List<DadosListagemEstudante> listar(){
         return repository.findAllByAtivoTrue().stream().map(DadosListagemEstudante::new).toList();
     }
+    public void excluir(Long id){
+        Estudante estudante = repository.getReferenceById(id);
+        estudante.excluir();
+        repository.save(estudante);
+    }
 }

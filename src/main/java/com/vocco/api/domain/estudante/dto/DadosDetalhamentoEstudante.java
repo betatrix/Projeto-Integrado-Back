@@ -14,6 +14,6 @@ public record DadosDetalhamentoEstudante(
         Boolean ativo,
         NivelEscolar nivelEscolar) {
     public DadosDetalhamentoEstudante(Estudante estudante){
-        this(estudante.getId(), estudante.getNome(), estudante.getEmail(), estudante.getDataNascimento(), estudante.getCelular(), estudante.getAtivo(), estudante.getNivelEscolar());
+        this(estudante.getId(), estudante.getNome(), estudante.getEmail(), estudante.getDataNascimento(), estudante.getCelular(), estudante.isAtivo(), estudante.getNivelEscolar());
     }
 }

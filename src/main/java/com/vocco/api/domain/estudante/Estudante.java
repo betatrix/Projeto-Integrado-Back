@@ -4,6 +4,7 @@ import com.vocco.api.domain.endereco.Endereco;
 import com.vocco.api.domain.estudante.dto.DadosAtualizacaoEstudante;
 import com.vocco.api.domain.estudante.dto.DadosCadastroEstudante;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.function.Consumer;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table
 public class Estudante {

@@ -3,6 +3,7 @@ package com.vocco.api.domain.area;
 import com.vocco.api.domain.area.dto.DadosAtualizacaoArea;
 import com.vocco.api.domain.area.dto.DadosCadastroArea;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.function.Consumer;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table
 public class Area {

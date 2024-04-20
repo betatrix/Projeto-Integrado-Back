@@ -42,4 +42,11 @@ public class AdministradorController {
     public ResponseEntity<List<DadosListagemAdministrador>> listar(){
         return ResponseEntity.ok().body(service.listar());
     }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        service.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
 }

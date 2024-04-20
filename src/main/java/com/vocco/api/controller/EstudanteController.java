@@ -43,4 +43,10 @@ public class EstudanteController {
     public ResponseEntity<List<DadosListagemEstudante>> listar(){
         return ResponseEntity.ok().body(service.listar());
     }
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        service.excluir(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -33,4 +33,9 @@ public class AreaService {
     public List<DadosListagemArea> listar(){
         return repository.findAllByAtivoTrue().stream().map(DadosListagemArea::new).toList();
     }
+    public void excluir(Long id){
+        Area area = repository.getReferenceById(id);
+        area.excluir();
+        repository.save(area);
+    }
 }

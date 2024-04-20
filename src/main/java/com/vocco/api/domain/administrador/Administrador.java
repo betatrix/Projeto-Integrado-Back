@@ -4,6 +4,7 @@ import com.vocco.api.domain.administrador.dto.DadosAtualizacaoAdministrador;
 import com.vocco.api.domain.administrador.dto.DadosCadastroAdministrador;
 import com.vocco.api.domain.endereco.Endereco;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.function.Consumer;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table
 public class Administrador {

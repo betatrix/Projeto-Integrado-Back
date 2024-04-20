@@ -1,2 +1,48 @@
-package com.vocco.api.domain.pergunta;public class Pergunta {
+package com.vocco.api.domain.pergunta;
+
+import com.vocco.api.domain.pergunta.dto.DadosAtualizacaoPergunta;
+import com.vocco.api.domain.pergunta.dto.DadosCadastroPergunta;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.util.Objects;
+import java.util.function.Consumer;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table
+public class Pergunta {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String texto;
+    private Boolean ativo;
+
+    public Pergunta(DadosCadastroPergunta dados){
+        this.texto = dados.texto();
+        this.ativo = true;
+    }
+    public void editarInformacoes(DadosAtualizacaoPergunta dados){
+        atribuirSeNaoForNulo(dados.texto(), this::setTexto);
+    }
+
+    private <T> void atribuirSeNaoForNulo(T valor, Consumer<T> setter){
+        if (Objects.nonNull(valor) && !valor.toString().trim().isEmpty()) {
+            setter.accept(valor);
+        }
+    }
+    public void excluir(){
+        this.ativo = false;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
 }
+
