@@ -22,9 +22,9 @@ public class PerguntaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DadosDetalhamentoPergunta> cadastrar(@RequestBody @Valid DadosCadastroPergunta dados){
-        DadosDetalhamentoPergunta pergunta = service.cadastrar(dados);
-        return ResponseEntity.ok().body(pergunta);
+    public ResponseEntity<List<DadosListagemPergunta>> cadastrar(@RequestBody @Valid DadosCadastroPergunta dados){
+        List<DadosListagemPergunta> perguntas = service.cadastrar(dados);
+        return ResponseEntity.ok().body(perguntas);
     }
 
     @PutMapping
@@ -38,10 +38,11 @@ public class PerguntaController {
         return ResponseEntity.ok().body(service.detalhar(id));
     }
 
-    @GetMapping
-    public ResponseEntity<List<DadosListagemPergunta>> listar(){
-        return ResponseEntity.ok().body(service.listar());
+    @GetMapping("teste/{id}")
+    public ResponseEntity<List<DadosListagemPergunta>> listar(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.listarPorTeste(id));
     }
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> excluir(@PathVariable Long id) {

@@ -2,6 +2,7 @@ package com.vocco.api.domain.pergunta;
 
 import com.vocco.api.domain.pergunta.dto.DadosAtualizacaoPergunta;
 import com.vocco.api.domain.pergunta.dto.DadosCadastroPergunta;
+import com.vocco.api.domain.teste.Teste;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,10 +24,13 @@ public class Pergunta {
     private Long id;
     private String texto;
     private Boolean ativo;
+    @ManyToOne
+    private Teste teste;
 
-    public Pergunta(DadosCadastroPergunta dados){
+    public Pergunta(DadosCadastroPergunta dados, Teste teste){
         this.texto = dados.texto();
         this.ativo = true;
+        this.teste = teste;
     }
     public void editarInformacoes(DadosAtualizacaoPergunta dados){
         atribuirSeNaoForNulo(dados.texto(), this::setTexto);
