@@ -8,8 +8,9 @@ public record DadosDetalhamentoEndereco(
         String estado,
         String cidade,
         String numero,
+        String bairro,
         String complemento) {
     public DadosDetalhamentoEndereco(Endereco endereco){
-        this(endereco.getCep(), endereco.getLogradouro(), endereco.getEstado(), endereco.getCidade(), endereco.getNumero(), endereco.getComplemento());
+        this(endereco.getCep(), endereco.getLogradouro(), endereco.getEstado(), endereco.getCidade(), endereco.getNumero(), endereco.getBairro(), endereco.getComplemento());
     }
 }

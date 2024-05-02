@@ -1,5 +1,7 @@
 package com.vocco.api.domain.curso;
 
+import com.vocco.api.domain.area.Area;
+import com.vocco.api.domain.area.AreaRepository;
 import com.vocco.api.domain.curso.dto.DadosAtualizacaoCurso;
 import com.vocco.api.domain.curso.dto.DadosCadastroCurso;
 import com.vocco.api.domain.curso.dto.DadosDetalhamentoCurso;
@@ -13,15 +15,22 @@ import java.util.List;
 public class CursoService {
     @Autowired
     private CursoRepository repository;
+    @Autowired
+    private AreaRepository areaRepository;
 
     public DadosDetalhamentoCurso cadastrar(DadosCadastroCurso dados){
-        Curso curso = new Curso(dados);
+        Area area = areaRepository.getReferenceById(dados.areaId());
+        Curso curso = new Curso(dados, area);
         repository.save(curso);
         return new DadosDetalhamentoCurso(curso);
     }
 
     public DadosDetalhamentoCurso editar(DadosAtualizacaoCurso dados){
         Curso curso = repository.getReferenceById(dados.id());
+        if(dados.areaId() != null){
+            Area area = areaRepository.getReferenceById(dados.areaId());
+            curso.setArea(area);
+        }
         curso.editarInformacoes(dados);
         repository.save(curso);
         return new DadosDetalhamentoCurso(curso);

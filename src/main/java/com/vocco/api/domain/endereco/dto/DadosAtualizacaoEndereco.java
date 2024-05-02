@@ -8,5 +8,6 @@ public record DadosAtualizacaoEndereco(
         String estado,
         String cidade,
         String numero,
+        String bairro,
         String complemento) {
 }
