@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 public record DadosListagemInstituicao(
         Long id,
         String nome,
-        String site,
         String sigla,
+        String site,
         BigDecimal notaMec
 ) {
     public DadosListagemInstituicao(Instituicao instituicao){
