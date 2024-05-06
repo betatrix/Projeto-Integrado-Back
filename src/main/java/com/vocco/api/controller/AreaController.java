@@ -43,6 +43,12 @@ public class AreaController {
         return ResponseEntity.ok().body(service.listar());
     }
 
+    @GetMapping("ativos")
+    public ResponseEntity<List<DadosListagemArea>> listarAtivos(){
+        return ResponseEntity.ok().body(service.listarAtivos());
+    }
+
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> excluir(@PathVariable Long id) {

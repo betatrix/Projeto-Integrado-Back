@@ -33,6 +33,10 @@ public class EstudanteTesteService {
         return repository.findByEstudanteId(estudanteId).stream().map(DadosListagemEstudanteTeste::new).toList();
     }
 
+    public Integer contar(){
+        return repository.findAll().size();
+    }
+
     public DadosDetalhamentoEstudanteTeste detalhar(Long id){
         return new DadosDetalhamentoEstudanteTeste(repository.getReferenceById(id));
     }

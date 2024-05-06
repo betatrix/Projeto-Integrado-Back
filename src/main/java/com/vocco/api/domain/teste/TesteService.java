@@ -40,6 +40,8 @@ public class TesteService {
     public List<DadosListagemTeste> listar(){
         return repository.findAllByAtivoTrue().stream().map(DadosListagemTeste::new).toList();
     }
+
+
     public void excluir(Long id){
         Teste teste = repository.getReferenceById(id);
         teste.excluir();

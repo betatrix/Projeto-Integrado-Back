@@ -1,5 +1,6 @@
 package com.vocco.api.controller;
 
+import com.vocco.api.domain.curso.dto.DadosListagemCurso;
 import com.vocco.api.domain.estudante.EstudanteService;
 import com.vocco.api.domain.estudante.dto.DadosAtualizacaoEstudante;
 import com.vocco.api.domain.estudante.dto.DadosCadastroEstudante;
@@ -43,6 +44,18 @@ public class EstudanteController {
     public ResponseEntity<List<DadosListagemEstudante>> listar(){
         return ResponseEntity.ok().body(service.listar());
     }
+
+    @GetMapping("ativos")
+    public ResponseEntity<List<DadosListagemEstudante>> listarAtivos(){
+        return ResponseEntity.ok().body(service.listarAtivos());
+    }
+
+    @GetMapping("ativos/contagem")
+    public ResponseEntity<Integer> contarAtivos(){
+        return ResponseEntity.ok().body(service.contarAtivos());
+    }
+
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> excluir(@PathVariable Long id) {

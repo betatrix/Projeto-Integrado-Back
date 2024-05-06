@@ -36,4 +36,9 @@ public class EstudanteTesteController {
         return ResponseEntity.ok().body(service.detalhar(id));
     }
 
+    @GetMapping("contagem")
+    public ResponseEntity<Integer> contar(){
+        return ResponseEntity.ok().body(service.contar());
+    }
+
 }

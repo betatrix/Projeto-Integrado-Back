@@ -31,8 +31,17 @@ public class EstudanteService {
     }
 
     public List<DadosListagemEstudante> listar(){
+        return repository.findAll().stream().map(DadosListagemEstudante::new).toList();
+    }
+
+    public List<DadosListagemEstudante> listarAtivos(){
         return repository.findAllByAtivoTrue().stream().map(DadosListagemEstudante::new).toList();
     }
+
+    public Integer contarAtivos(){
+        return repository.findAllByAtivoTrue().size();
+    }
+
     public void excluir(Long id){
         Estudante estudante = repository.getReferenceById(id);
         estudante.excluir();

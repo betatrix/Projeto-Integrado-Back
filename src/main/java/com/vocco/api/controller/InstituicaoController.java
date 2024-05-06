@@ -44,6 +44,16 @@ public class InstituicaoController {
         return ResponseEntity.ok().body(service.listar());
     }
 
+    @GetMapping("ativos")
+    public ResponseEntity<List<DadosListagemInstituicao>> listarAtivos(){
+        return ResponseEntity.ok().body(service.listarAtivos());
+    }
+
+    @GetMapping("ativos/contagem")
+    public ResponseEntity<Integer> contarAtivos(){
+        return ResponseEntity.ok().body(service.contarAtivos());
+    }
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> excluir(@PathVariable Long id) {

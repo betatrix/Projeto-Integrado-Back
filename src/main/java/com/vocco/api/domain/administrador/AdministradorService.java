@@ -4,6 +4,7 @@ import com.vocco.api.domain.administrador.dto.DadosAtualizacaoAdministrador;
 import com.vocco.api.domain.administrador.dto.DadosCadastroAdministrador;
 import com.vocco.api.domain.administrador.dto.DadosDetalhamentoAdministrador;
 import com.vocco.api.domain.administrador.dto.DadosListagemAdministrador;
+import com.vocco.api.domain.curso.dto.DadosListagemCurso;
 import com.vocco.api.domain.instituicao.Instituicao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,10 @@ public class AdministradorService {
     }
 
     public List<DadosListagemAdministrador> listar(){
+        return repository.findAll().stream().map(DadosListagemAdministrador::new).toList();
+    }
+
+    public List<DadosListagemAdministrador> listarAtivos() {
         return repository.findAllByAtivoTrue().stream().map(DadosListagemAdministrador::new).toList();
     }
 
@@ -43,4 +48,6 @@ public class AdministradorService {
         administrador.excluir();
         repository.save(administrador);
     }
+
+
 }

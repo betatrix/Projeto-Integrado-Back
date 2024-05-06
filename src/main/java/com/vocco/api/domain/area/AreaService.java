@@ -31,8 +31,14 @@ public class AreaService {
     }
 
     public List<DadosListagemArea> listar(){
+        return repository.findAll().stream().map(DadosListagemArea::new).toList();
+    }
+
+    public List<DadosListagemArea> listarAtivos(){
         return repository.findAllByAtivoTrue().stream().map(DadosListagemArea::new).toList();
     }
+
+
     public void excluir(Long id){
         Area area = repository.getReferenceById(id);
         area.excluir();

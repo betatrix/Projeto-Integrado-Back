@@ -1,5 +1,6 @@
 package com.vocco.api.controller;
 
+import com.vocco.api.domain.area.dto.DadosListagemArea;
 import com.vocco.api.domain.politica.PoliticaService;
 import com.vocco.api.domain.politica.dto.DadosAtualizacaoPolitica;
 import com.vocco.api.domain.politica.dto.DadosCadastroPolitica;
@@ -41,6 +42,11 @@ public class PoliticaController {
     @GetMapping
     public ResponseEntity<List<DadosDetalhamentoPolitica>> listar(){
         return ResponseEntity.ok().body(service.listar());
+    }
+
+    @GetMapping("ativos")
+    public ResponseEntity<List<DadosDetalhamentoPolitica>> listarAtivos(){
+        return ResponseEntity.ok().body(service.listarAtivos());
     }
 
     @DeleteMapping("/{id}")

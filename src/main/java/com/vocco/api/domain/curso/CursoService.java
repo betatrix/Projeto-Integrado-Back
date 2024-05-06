@@ -41,7 +41,15 @@ public class CursoService {
     }
 
     public List<DadosListagemCurso> listar(){
+        return repository.findAll().stream().map(DadosListagemCurso::new).toList();
+    }
+
+    public List<DadosListagemCurso> listarAtivos(){
         return repository.findAllByAtivoTrue().stream().map(DadosListagemCurso::new).toList();
+    }
+
+    public Integer contarAtivos(){
+        return repository.findAllByAtivoTrue().size();
     }
 
     public void excluir(Long id){

@@ -35,7 +35,15 @@ public class InstituicaoService {
     }
 
     public List<DadosListagemInstituicao> listar(){
+        return repository.findAll().stream().map(DadosListagemInstituicao::new).toList();
+    }
+
+    public List<DadosListagemInstituicao> listarAtivos(){
         return repository.findAllByAtivoTrue().stream().map(DadosListagemInstituicao::new).toList();
+    }
+
+    public Integer contarAtivos(){
+        return repository.findAllByAtivoTrue().size();
     }
 
     public void excluir(Long id){

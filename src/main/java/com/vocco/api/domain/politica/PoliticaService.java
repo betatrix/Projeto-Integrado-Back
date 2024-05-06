@@ -31,6 +31,10 @@ public class PoliticaService {
     }
 
     public List<DadosDetalhamentoPolitica> listar(){
+        return repository.findAll().stream().map(DadosDetalhamentoPolitica::new).toList();
+    }
+
+    public List<DadosDetalhamentoPolitica> listarAtivos(){
         return repository.findAllByAtivoTrue().stream().map(DadosDetalhamentoPolitica::new).toList();
     }
 

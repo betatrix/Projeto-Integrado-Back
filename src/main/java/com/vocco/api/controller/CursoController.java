@@ -1,6 +1,7 @@
 package com.vocco.api.controller;
 
 
+import com.vocco.api.domain.area.dto.DadosListagemArea;
 import com.vocco.api.domain.curso.CursoService;
 import com.vocco.api.domain.curso.dto.DadosAtualizacaoCurso;
 import com.vocco.api.domain.curso.dto.DadosCadastroCurso;
@@ -43,6 +44,16 @@ public class CursoController {
     @GetMapping
     public ResponseEntity<List<DadosListagemCurso>> listar(){
         return ResponseEntity.ok().body(service.listar());
+    }
+
+    @GetMapping("ativos")
+    public ResponseEntity<List<DadosListagemCurso>> listarAtivos(){
+        return ResponseEntity.ok().body(service.listarAtivos());
+    }
+
+    @GetMapping("ativos/contagem")
+    public ResponseEntity<Integer> contarAtivos(){
+        return ResponseEntity.ok().body(service.contarAtivos());
     }
 
     @DeleteMapping("/{id}")
