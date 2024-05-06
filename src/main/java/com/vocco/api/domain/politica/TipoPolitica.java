@@ -2,5 +2,5 @@ package com.vocco.api.domain.politica;
 
 public enum TipoPolitica {
     POLITICA_ENTRADA,
-    POLITICA_PERMANCENCIA
+    POLITICA_PERMANENCIA
 }
