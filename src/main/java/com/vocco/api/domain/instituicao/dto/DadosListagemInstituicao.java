@@ -9,9 +9,10 @@ public record DadosListagemInstituicao(
         String nome,
         String sigla,
         String site,
+        Boolean ativo,
         BigDecimal notaMec
 ) {
     public DadosListagemInstituicao(Instituicao instituicao){
-        this(instituicao.getId(), instituicao.getNome(), instituicao.getSigla(), instituicao.getSite(), instituicao.getNotaMec());
+        this(instituicao.getId(), instituicao.getNome(), instituicao.getSigla(), instituicao.getSite(), instituicao.getAtivo(), instituicao.getNotaMec());
     }
 }
