@@ -29,7 +29,7 @@ public class SecurityConfigurations {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.applyPermitDefaultValues();
-        configuration.addAllowedOrigin("https://vocco.vercel.app/*"); // Permitir todas as origens
+        configuration.addAllowedOrigin("*"); // Permitir todas as origens
         configuration.addAllowedMethod("*"); // Permitir todos os métodos (GET, POST, PUT, etc.)
         configuration.addAllowedHeader("*"); // Permitir todos os cabeçalhos
 
