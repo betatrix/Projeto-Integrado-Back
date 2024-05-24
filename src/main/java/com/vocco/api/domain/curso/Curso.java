@@ -3,6 +3,7 @@ package com.vocco.api.domain.curso;
 import com.vocco.api.domain.area.Area;
 import com.vocco.api.domain.curso.dto.DadosAtualizacaoCurso;
 import com.vocco.api.domain.curso.dto.DadosCadastroCurso;
+import com.vocco.api.domain.perfil.Perfil;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,13 +31,16 @@ public class Curso {
     private List<String> possiveisCarreiras; //Talvez transformar carreira em uma entidade
     @ManyToOne
     private Area area;
+    @ManyToOne
+    private Perfil perfil;
 
-    public Curso(DadosCadastroCurso dados, Area area){
+    public Curso(DadosCadastroCurso dados, Area area, Perfil perfil){
         this.descricao = dados.descricao();
         this.empregabilidade = dados.empregabilidade();
         this.ativo = true;
         this.possiveisCarreiras = dados.possiveisCarreiras();
         this.area = area;
+        this.perfil = perfil;
     }
 
     public void excluir(){

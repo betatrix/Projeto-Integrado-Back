@@ -7,6 +7,8 @@ public record DadosCadastroPergunta(
         @NotBlank
         String texto,
         @NotNull
-        Long testeId
+        Long testeId,
+        @NotNull
+        Long perfilId
 ) {
 }

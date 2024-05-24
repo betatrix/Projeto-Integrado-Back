@@ -1,5 +1,6 @@
 package com.vocco.api.domain.pergunta;
 
+import com.vocco.api.domain.perfil.Perfil;
 import com.vocco.api.domain.pergunta.dto.DadosAtualizacaoPergunta;
 import com.vocco.api.domain.pergunta.dto.DadosCadastroPergunta;
 import com.vocco.api.domain.teste.Teste;
@@ -26,11 +27,14 @@ public class Pergunta {
     private Boolean ativo;
     @ManyToOne
     private Teste teste;
+    @ManyToOne
+    private Perfil perfil;
 
-    public Pergunta(DadosCadastroPergunta dados, Teste teste){
+    public Pergunta(DadosCadastroPergunta dados, Teste teste, Perfil perfil){
         this.texto = dados.texto();
         this.ativo = true;
         this.teste = teste;
+        this.perfil = perfil;
     }
     public void editarInformacoes(DadosAtualizacaoPergunta dados){
         atribuirSeNaoForNulo(dados.texto(), this::setTexto);
