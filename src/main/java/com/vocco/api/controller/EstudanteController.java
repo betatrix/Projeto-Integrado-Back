@@ -23,6 +23,7 @@ public class EstudanteController {
 
     @PostMapping
     @Transactional
+    @RequestMapping("/cadastro")
     public ResponseEntity<DadosDetalhamentoEstudante> cadastrar(@RequestBody @Valid DadosCadastroEstudante dados){
         DadosDetalhamentoEstudante estudante = service.cadastrar(dados);
         return ResponseEntity.ok().body(estudante);

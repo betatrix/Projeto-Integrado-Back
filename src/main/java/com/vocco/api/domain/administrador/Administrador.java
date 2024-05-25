@@ -3,11 +3,15 @@ package com.vocco.api.domain.administrador;
 import com.vocco.api.domain.administrador.dto.DadosAtualizacaoAdministrador;
 import com.vocco.api.domain.administrador.dto.DadosCadastroAdministrador;
 import com.vocco.api.domain.endereco.Endereco;
+import com.vocco.api.domain.usuario.Usuario;
+import com.vocco.api.domain.usuario.UsuarioRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -32,16 +36,21 @@ public class Administrador {
     private Endereco endereco;
     private Boolean ativo;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
+
 
     public Administrador(DadosCadastroAdministrador dados){
         this.nome = dados.nome();
         this.cpf = dados.cpf();
         this.email = dados.email();
-        this.senha = dados.senha();
+        this.senha = new BCryptPasswordEncoder().encode(dados.senha());
         this.cargo = dados.cargo();
         this.celular = dados.celular();
         this.ativo = true;
         this.endereco = new Endereco(dados.endereco());
+        this.usuario = new Usuario(dados.email(), this.senha, UsuarioRole.ADMIN);
     }
 
     public void editarInformacoes(DadosAtualizacaoAdministrador dados){

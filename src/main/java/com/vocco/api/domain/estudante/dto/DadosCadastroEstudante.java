@@ -14,7 +14,7 @@ public record DadosCadastroEstudante(
         String email,
         @NotBlank
         String senha,
-        @NotBlank
+        @NotNull
         LocalDate dataNascimento,
         @NotBlank
         String celular,
