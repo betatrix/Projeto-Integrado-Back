@@ -42,7 +42,7 @@ public class CursoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosListagemCurso>> listar(){
+    public ResponseEntity<List<DadosDetalhamentoCurso>> listar(){
         return ResponseEntity.ok().body(service.listar());
     }
 

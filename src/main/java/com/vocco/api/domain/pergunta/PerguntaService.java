@@ -1,5 +1,7 @@
 package com.vocco.api.domain.pergunta;
 
+import com.vocco.api.domain.perfil.Perfil;
+import com.vocco.api.domain.perfil.PerfilRepository;
 import com.vocco.api.domain.pergunta.dto.DadosAtualizacaoPergunta;
 import com.vocco.api.domain.pergunta.dto.DadosCadastroPergunta;
 import com.vocco.api.domain.pergunta.dto.DadosDetalhamentoPergunta;
@@ -17,11 +19,14 @@ public class PerguntaService {
     private PerguntaRepository repository;
     @Autowired
     private TesteRepository testeRepository;
+    @Autowired
+    private PerfilRepository perfilRepository;
 
 
     public List<DadosListagemPergunta> cadastrar(DadosCadastroPergunta dados){
         Teste teste = testeRepository.getReferenceById(dados.testeId());
-        Pergunta pergunta = new Pergunta(dados, teste);
+        Perfil perfil = perfilRepository.getReferenceById(dados.perfilId());
+        Pergunta pergunta = new Pergunta(dados, teste, perfil);
         repository.save(pergunta);
         return listarPorTeste(teste.getId());
     }

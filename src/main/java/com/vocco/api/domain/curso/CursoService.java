@@ -6,6 +6,8 @@ import com.vocco.api.domain.curso.dto.DadosAtualizacaoCurso;
 import com.vocco.api.domain.curso.dto.DadosCadastroCurso;
 import com.vocco.api.domain.curso.dto.DadosDetalhamentoCurso;
 import com.vocco.api.domain.curso.dto.DadosListagemCurso;
+import com.vocco.api.domain.perfil.Perfil;
+import com.vocco.api.domain.perfil.PerfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,13 @@ public class CursoService {
     private CursoRepository repository;
     @Autowired
     private AreaRepository areaRepository;
+    @Autowired
+    private PerfilRepository perfilRepository;
 
     public DadosDetalhamentoCurso cadastrar(DadosCadastroCurso dados){
         Area area = areaRepository.getReferenceById(dados.areaId());
-        Curso curso = new Curso(dados, area);
+        Perfil perfil = perfilRepository.getReferenceById(dados.perfilId());
+        Curso curso = new Curso(dados, area, perfil);
         repository.save(curso);
         return new DadosDetalhamentoCurso(curso);
     }
@@ -40,8 +45,8 @@ public class CursoService {
         return new DadosDetalhamentoCurso(repository.getReferenceById(id));
     }
 
-    public List<DadosListagemCurso> listar(){
-        return repository.findAll().stream().map(DadosListagemCurso::new).toList();
+    public List<DadosDetalhamentoCurso> listar(){
+        return repository.findAll().stream().map(DadosDetalhamentoCurso::new).toList();
     }
 
     public List<DadosListagemCurso> listarAtivos(){

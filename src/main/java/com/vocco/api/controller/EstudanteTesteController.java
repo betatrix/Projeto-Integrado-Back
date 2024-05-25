@@ -19,12 +19,12 @@ public class EstudanteTesteController {
     @Autowired
     private EstudanteTesteService service;
 
-    @PostMapping
-    @Transactional
-    public ResponseEntity<DadosDetalhamentoEstudanteTeste> cadastrar(@RequestBody @Valid DadosCadastroEstudanteTeste dados){
-        DadosDetalhamentoEstudanteTeste estudanteTeste = service.cadastrar(dados);
-        return ResponseEntity.ok().body(estudanteTeste);
-    }
+//    @PostMapping
+//    @Transactional
+//    public ResponseEntity<DadosDetalhamentoEstudanteTeste> cadastrar(@RequestBody @Valid DadosCadastroEstudanteTeste dados){
+//        DadosDetalhamentoEstudanteTeste estudanteTeste = service.cadastrar(dados);
+//        return ResponseEntity.ok().body(estudanteTeste);
+//    }
 
     @GetMapping("teste/{estudanteId}")
     public ResponseEntity<List<DadosListagemEstudanteTeste>> listar(@PathVariable Long estudanteId){

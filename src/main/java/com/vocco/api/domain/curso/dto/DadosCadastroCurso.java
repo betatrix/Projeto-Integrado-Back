@@ -11,6 +11,8 @@ public record DadosCadastroCurso(
         String descricao,
         @NotNull
         Long areaId,
+        @NotNull
+        Long perfilId,
         NivelEmpregabilidade empregabilidade,
         List<String> possiveisCarreiras
 ) {

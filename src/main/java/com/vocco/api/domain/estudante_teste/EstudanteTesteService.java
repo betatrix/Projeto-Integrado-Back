@@ -21,12 +21,12 @@ public class EstudanteTesteService {
     @Autowired
     private TesteRepository testeRepository;
 
-    public DadosDetalhamentoEstudanteTeste cadastrar(DadosCadastroEstudanteTeste dados){
+    public EstudanteTeste cadastrar(DadosCadastroEstudanteTeste dados){
         Teste teste = testeRepository.getReferenceById(dados.testeId());
         Estudante estudante = estudanteRepository.getReferenceById(dados.estudanteId());
         EstudanteTeste estudanteTeste = new EstudanteTeste(teste, estudante);
         repository.save(estudanteTeste);
-        return new DadosDetalhamentoEstudanteTeste(estudanteTeste);
+        return estudanteTeste;
     }
 
     public List<DadosListagemEstudanteTeste> listarTestesDeEstudante(Long estudanteId){
