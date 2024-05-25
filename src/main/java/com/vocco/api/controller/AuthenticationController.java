@@ -2,12 +2,14 @@ package com.vocco.api.controller;
 
 import com.vocco.api.domain.usuario.Usuario;
 import com.vocco.api.domain.usuario.UsuarioRepository;
+import com.vocco.api.domain.usuario.UsuarioService;
 import com.vocco.api.domain.usuario.dto.AuthenticationDTO;
 import com.vocco.api.domain.usuario.dto.LoginResponseDTO;
 import com.vocco.api.domain.usuario.dto.RegistroUsuarioDTO;
 import com.vocco.api.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,25 +23,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("auth")
 public class AuthenticationController {
     @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
     private UsuarioRepository repository;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private UsuarioService service;
+    private final AuthenticationManager authenticationManager;
+
+    public AuthenticationController(@Lazy AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
+
+//    @PostMapping("/login")
+//    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO dados){
+//        try {
+//            var usernamePassword = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+//            var auth = this.authenticationManager.authenticate(usernamePassword);
+//            var token = tokenService.generateToken((Usuario) auth.getPrincipal());
+//
+//            return ResponseEntity.ok(new LoginResponseDTO(token));
+//
+//        } catch (Exception e) {
+//            return ResponseEntity.status(401).body("Credenciais inválidas");
+//        }
+//    }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO dados){
-        try {
-            var usernamePassword = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-            var auth = this.authenticationManager.authenticate(usernamePassword);
-
-            var token = tokenService.generateToken((Usuario) auth.getPrincipal());
-
-            return ResponseEntity.ok(new LoginResponseDTO(token));
-
-        } catch (Exception e) {
-            return ResponseEntity.status(401).body("Credenciais inválidas");
-        }
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO dados){
+       return  ResponseEntity.ok().body(service.login(dados));
     }
 
     @PostMapping("/registrar")

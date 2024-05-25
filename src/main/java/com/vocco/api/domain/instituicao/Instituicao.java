@@ -27,6 +27,7 @@ public class Instituicao {
     private BigDecimal notaMec;
     private String sigla;
     private Boolean ativo;
+    private String formaIngresso;
     @Embedded
     private Endereco endereco;
 
@@ -35,6 +36,7 @@ public class Instituicao {
         this.site = dados.site();
         this.notaMec = dados.notaMec();
         this.sigla = dados.sigla();
+        this.formaIngresso = dados.formaIngresso();
         this.ativo = true;
         this.endereco = new Endereco(dados.endereco());
     }
@@ -44,6 +46,7 @@ public class Instituicao {
         atribuirSeForNaoNulo(dados.site(), this::setSite);
         atribuirSeForNaoNulo(dados.notaMec(), this::setNotaMec);
         atribuirSeForNaoNulo(dados.sigla(), this::setSigla);
+        atribuirSeForNaoNulo(dados.formaIngresso(), this::setFormaIngresso);
     }
 
     public void excluir(){

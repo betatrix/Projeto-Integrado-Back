@@ -21,9 +21,8 @@ public class EstudanteController {
     @Autowired
     private EstudanteService service;
 
-    @PostMapping
+    @PostMapping("/cadastro")
     @Transactional
-    @RequestMapping("/cadastro")
     public ResponseEntity<DadosDetalhamentoEstudante> cadastrar(@RequestBody @Valid DadosCadastroEstudante dados){
         DadosDetalhamentoEstudante estudante = service.cadastrar(dados);
         return ResponseEntity.ok().body(estudante);

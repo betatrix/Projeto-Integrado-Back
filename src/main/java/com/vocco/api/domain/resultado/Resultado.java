@@ -18,7 +18,7 @@ public class Resultado {
     private Long id;
     @Column(length = 1000)
     private String mensagem;
-    @ManyToOne
+    @OneToOne
     private EstudanteTeste estudanteTeste;
 
     public Resultado(EstudanteTeste estudanteTeste, String mensagem){

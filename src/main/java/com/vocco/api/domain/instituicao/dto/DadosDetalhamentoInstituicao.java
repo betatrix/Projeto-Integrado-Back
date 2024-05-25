@@ -12,11 +12,12 @@ public record DadosDetalhamentoInstituicao(
         String site,
         BigDecimal notaMec,
         Boolean ativo,
+        String formaIngresso,
         DadosDetalhamentoEndereco endereco
 ) {
     public DadosDetalhamentoInstituicao(Instituicao instituicao){
         this(instituicao.getId(), instituicao.getNome(), instituicao.getSigla(),
-                instituicao.getSite(), instituicao.getNotaMec(), instituicao.getAtivo(),
+                instituicao.getSite(), instituicao.getNotaMec(), instituicao.getAtivo(), instituicao.getFormaIngresso(),
                 new DadosDetalhamentoEndereco(instituicao.getEndereco()));
     }
 }

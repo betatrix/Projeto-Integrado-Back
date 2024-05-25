@@ -15,6 +15,7 @@ public record DadosCadastroInstituicao(
         @NotBlank
         String sigla,
         BigDecimal notaMec,
+        String formaIngresso,
         @NotNull
         @Valid
         DadosCadastroEndereco endereco

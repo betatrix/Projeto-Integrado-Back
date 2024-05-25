@@ -12,5 +12,6 @@ public record DadosAtualizacaoInstituicao(
         String site,
         BigDecimal notaMec,
         String sigla,
+        String formaIngresso,
         DadosAtualizacaoEndereco endereco) {
 }
