@@ -36,8 +36,7 @@ public class UsuarioService implements UserDetailsService {
     }
 
     public LoginResponseDTO login(AuthenticationDTO dados){
-        String senhaCriptografada = new BCryptPasswordEncoder().encode(dados.senha());
-        Usuario usuario = repository.findByLoginAndSenha(dados.login(), senhaCriptografada);
+        Usuario usuario = repository.findByLoginUsuario(dados.login());
 
         if(usuario == null){
             throw new RuntimeException("Credenciais Inválidas!");
@@ -48,7 +47,6 @@ public class UsuarioService implements UserDetailsService {
         var token = tokenService.generateToken((Usuario) auth.getPrincipal());
 
         Estudante estudante = estudanteRepository.findAllByUsuarioId(usuario.getId());
-
         return new LoginResponseDTO(token, usuario, estudante);
     }
 
