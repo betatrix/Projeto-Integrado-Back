@@ -20,7 +20,8 @@ public class EstudantePerfilService {
     @Autowired
     private PerfilRepository perfilRepository;
 
-    public EstudantePerfil cadastrar(Estudante estudante, Perfil perfil, Integer compatbilidade){
+    public EstudantePerfil cadastrar(Long usuarioId, Perfil perfil, Integer compatbilidade){
+        Estudante estudante = estudanteRepository.getReferenceByUsuarioId(usuarioId);
         EstudantePerfil estudantePerfil = new EstudantePerfil(compatbilidade, estudante, perfil);
         repository.save(estudantePerfil);
         return estudantePerfil;

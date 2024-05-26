@@ -6,6 +6,7 @@ import com.vocco.api.domain.usuario.UsuarioService;
 import com.vocco.api.domain.usuario.dto.AuthenticationDTO;
 import com.vocco.api.domain.usuario.dto.LoginResponseDTO;
 import com.vocco.api.domain.usuario.dto.RegistroUsuarioDTO;
+import com.vocco.api.infra.email.EmailService;
 import com.vocco.api.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
@@ -28,6 +26,8 @@ public class AuthenticationController {
     private TokenService tokenService;
     @Autowired
     private UsuarioService service;
+    @Autowired
+    EmailService emailService;
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationController(@Lazy AuthenticationManager authenticationManager) {
@@ -62,5 +62,23 @@ public class AuthenticationController {
 
         this.repository.save(novoUsuario);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/esqueceuSenha")
+    public ResponseEntity<?> esqueceuSenha(@RequestParam String email) {
+        String token = service.criarTokenRecuperacaoSenha(email);
+        String url = "https://vocco.vercel.app/reset-password?token=" + token;
+        emailService.enviarEmailRecuperacaoSenha(email, url);
+        return ResponseEntity.ok("Acesse o link gerado em seu email para gerar uma nova senha.");
+    }
+
+    @PostMapping("/redefinirSenha")
+    public ResponseEntity<?> redefinirSenha(@RequestParam String token, @RequestParam String novaSenha) {
+        boolean isReset = service.atualizarSenha(token, novaSenha);
+        if (isReset) {
+            return ResponseEntity.ok("Senha atualizada com sucesso.");
+        } else {
+            return ResponseEntity.badRequest().body("tokenInvalido.");
+        }
     }
 }

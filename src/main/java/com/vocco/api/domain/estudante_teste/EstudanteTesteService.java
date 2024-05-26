@@ -23,14 +23,15 @@ public class EstudanteTesteService {
 
     public EstudanteTeste cadastrar(DadosCadastroEstudanteTeste dados){
         Teste teste = testeRepository.getReferenceById(dados.testeId());
-        Estudante estudante = estudanteRepository.getReferenceById(dados.estudanteId());
+        Estudante estudante = estudanteRepository.getReferenceByUsuarioId(dados.usuarioId());
         EstudanteTeste estudanteTeste = new EstudanteTeste(teste, estudante);
         repository.save(estudanteTeste);
         return estudanteTeste;
     }
 
-    public List<DadosListagemEstudanteTeste> listarTestesDeEstudante(Long estudanteId){
-        return repository.findByEstudanteId(estudanteId).stream().map(DadosListagemEstudanteTeste::new).toList();
+    public List<DadosListagemEstudanteTeste> listarTestesDeEstudante(Long usuarioId){
+        Estudante estudante = estudanteRepository.getReferenceByUsuarioId(usuarioId);
+        return repository.findByEstudanteId(estudante.getId()).stream().map(DadosListagemEstudanteTeste::new).toList();
     }
 
     public Integer contar(){

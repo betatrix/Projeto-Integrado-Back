@@ -2,6 +2,6 @@ package com.vocco.api.domain.estudante_teste.dto;
 
 public record DadosCadastroEstudanteTeste(
         Long testeId,
-        Long estudanteId
+        Long usuarioId
 ) {
 }

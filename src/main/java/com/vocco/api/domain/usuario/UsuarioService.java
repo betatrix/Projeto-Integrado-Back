@@ -4,6 +4,8 @@ import com.vocco.api.domain.estudante.Estudante;
 import com.vocco.api.domain.estudante.EstudanteRepository;
 import com.vocco.api.domain.usuario.dto.AuthenticationDTO;
 import com.vocco.api.domain.usuario.dto.LoginResponseDTO;
+import com.vocco.api.domain.usuario.recuperacaoSenha.TokenRecuperacaoSenha;
+import com.vocco.api.domain.usuario.recuperacaoSenha.TokenRecuperacaoSenhaRepository;
 import com.vocco.api.infra.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -15,6 +17,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class UsuarioService implements UserDetailsService {
     @Autowired
@@ -25,6 +31,8 @@ public class UsuarioService implements UserDetailsService {
     private EstudanteRepository estudanteRepository;
 
     private final AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenRecuperacaoSenhaRepository recuperacaoSenhaRepository;
 
     public UsuarioService(@Lazy AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -49,5 +57,46 @@ public class UsuarioService implements UserDetailsService {
         Estudante estudante = estudanteRepository.findAllByUsuarioId(usuario.getId());
         return new LoginResponseDTO(token, usuario, estudante);
     }
+
+    public String criarTokenRecuperacaoSenha(String email) {
+        Optional<Usuario> usuario = repository.findByEmail(email);
+        if (!usuario.isPresent()) {
+            throw new IllegalArgumentException("Email não encontrado");
+        }
+
+        Usuario usuarioEncontrado = usuario.get();
+        String token = UUID.randomUUID().toString();
+
+        TokenRecuperacaoSenha tokenRecuperacaoSenha = new TokenRecuperacaoSenha();
+        tokenRecuperacaoSenha.setToken(token);
+        tokenRecuperacaoSenha.setUsuario(usuarioEncontrado);
+        tokenRecuperacaoSenha.setDataExpiracao(LocalDateTime.now().plusHours(1)); // Token válido por 1 hora
+
+        recuperacaoSenhaRepository.save(tokenRecuperacaoSenha);
+        return token;
+    }
+
+    public boolean atualizarSenha(String token, String novaSenha) {
+        Optional<TokenRecuperacaoSenha> tokenRecuperacaoSenha = recuperacaoSenhaRepository.findByToken(token);
+
+        if (!tokenRecuperacaoSenha.isPresent()) {
+            return false; // Token inválido
+        }
+
+        TokenRecuperacaoSenha tokenEncontrado = tokenRecuperacaoSenha.get();
+
+        if (tokenEncontrado.getDataExpiracao().isBefore(LocalDateTime.now())) {
+            return false; // Token expirado
+        }
+
+        Usuario usuario = tokenEncontrado.getUsuario();
+        usuario.setSenha(new BCryptPasswordEncoder().encode(novaSenha));
+        repository.save(usuario);
+
+        recuperacaoSenhaRepository.delete(tokenEncontrado); // Invalidar o token
+        return true;
+    }
+
+
 
 }

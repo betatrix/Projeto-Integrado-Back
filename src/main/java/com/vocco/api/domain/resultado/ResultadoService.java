@@ -85,7 +85,7 @@ public class ResultadoService {
             if (contagem >= 3) {
                 long somaRespostas = somaRespostasPorPerfil.get(perfil);
                 int mediaCompatibilidade = Math.round((float) somaRespostas / contagem);
-                EstudantePerfil estudantePerfil = estudantePerfilService.cadastrar(estudanteTeste.getEstudante(), perfil, mediaCompatibilidade);
+                EstudantePerfil estudantePerfil = estudantePerfilService.cadastrar(estudanteTeste.getEstudante().getUsuario().getId(), perfil, mediaCompatibilidade);
                 perfis.add(estudantePerfil);
             }
         });

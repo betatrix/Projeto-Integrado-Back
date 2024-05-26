@@ -9,4 +9,6 @@ public interface EstudanteRepository extends JpaRepository<Estudante, Long> {
     List<Estudante> findAllByAtivoTrue();
 
     Estudante findAllByUsuarioId(Long id);
+
+    Estudante getReferenceByUsuarioId(Long aLong);
 }
