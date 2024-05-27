@@ -19,9 +19,8 @@ public class AdministradorController {
     @Autowired
     private AdministradorService service;
 
-    @PostMapping
+    @PostMapping("/cadastro")
     @Transactional
-    @RequestMapping("/cadastro")
     public ResponseEntity<DadosDetalhamentoAdministrador> cadastrar(@RequestBody @Valid DadosCadastroAdministrador dados){
         DadosDetalhamentoAdministrador administrador = service.cadastrar(dados);
         return ResponseEntity.ok().body(administrador);

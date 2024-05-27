@@ -1,11 +1,15 @@
 package com.vocco.api.domain.usuario;
 
+import com.vocco.api.domain.administrador.Administrador;
+import com.vocco.api.domain.administrador.AdministradorRepository;
 import com.vocco.api.domain.estudante.Estudante;
 import com.vocco.api.domain.estudante.EstudanteRepository;
-import com.vocco.api.domain.usuario.dto.AuthenticationDTO;
-import com.vocco.api.domain.usuario.dto.LoginResponseDTO;
+import com.vocco.api.domain.usuario.dto.DadosAutenticacaoUsuario;
+import com.vocco.api.domain.usuario.dto.DadosRetornoLoginAdministrador;
+import com.vocco.api.domain.usuario.dto.DadosRetornoLoginEstudante;
 import com.vocco.api.domain.usuario.recuperacaoSenha.TokenRecuperacaoSenha;
 import com.vocco.api.domain.usuario.recuperacaoSenha.TokenRecuperacaoSenhaRepository;
+import com.vocco.api.infra.exception.excecoesPersonalizadas.ValidacaoException;
 import com.vocco.api.infra.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -29,6 +33,8 @@ public class UsuarioService implements UserDetailsService {
     private TokenService tokenService;
     @Autowired
     private EstudanteRepository estudanteRepository;
+    @Autowired
+    private AdministradorRepository administradorRepository;
 
     private final AuthenticationManager authenticationManager;
     @Autowired
@@ -43,11 +49,11 @@ public class UsuarioService implements UserDetailsService {
         return repository.findByLogin(username);
     }
 
-    public LoginResponseDTO login(AuthenticationDTO dados){
+    public DadosRetornoLoginEstudante loginEstudante (DadosAutenticacaoUsuario dados){
         Usuario usuario = repository.findByLoginUsuario(dados.login());
 
         if(usuario == null){
-            throw new RuntimeException("Credenciais Inválidas!");
+            throw new ValidacaoException("Credenciais Inválidas!");
         }
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
@@ -55,7 +61,22 @@ public class UsuarioService implements UserDetailsService {
         var token = tokenService.generateToken((Usuario) auth.getPrincipal());
 
         Estudante estudante = estudanteRepository.findAllByUsuarioId(usuario.getId());
-        return new LoginResponseDTO(token, usuario, estudante);
+        return new DadosRetornoLoginEstudante(token, usuario, estudante);
+    }
+
+    public DadosRetornoLoginAdministrador loginAdministrador (DadosAutenticacaoUsuario dados){
+        Usuario usuario = repository.findByLoginUsuario(dados.login());
+
+        if(usuario == null){
+            throw new ValidacaoException("Credenciais Inválidas!");
+        }
+
+        var usernamePassword = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var auth = this.authenticationManager.authenticate(usernamePassword);
+        var token = tokenService.generateToken((Usuario) auth.getPrincipal());
+
+        Administrador administrador = administradorRepository.findAllByUsuarioId(usuario.getId());
+        return new DadosRetornoLoginAdministrador(token, usuario, administrador);
     }
 
     public String criarTokenRecuperacaoSenha(String email) {

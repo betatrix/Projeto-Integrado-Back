@@ -46,15 +46,15 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth                                                   //quais requisições http que serão autorizadas
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/registrar").permitAll()     //todos os usuarios podem acessar a parte e registrar
-                        .requestMatchers(HttpMethod.POST, "/estudante/cadastro").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/administrador/cadastro").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()     //swagger
-                        //.requestMatchers(HttpMethod.POST, "/curso").hasAuthority("admin")  //hasRole não funfa
-                        .anyRequest().authenticated()
-                        //.anyRequest().permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/auth/registrar").permitAll()     //todos os usuarios podem acessar a parte e registrar
+//                        .requestMatchers(HttpMethod.POST, "/estudante/cadastro").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/administrador/cadastro").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()     //swagger
+//                        //.requestMatchers(HttpMethod.POST, "/curso").hasAuthority("admin")  //hasRole não funfa
+//                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

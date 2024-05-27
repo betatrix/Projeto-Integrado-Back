@@ -3,9 +3,10 @@ package com.vocco.api.controller;
 import com.vocco.api.domain.usuario.Usuario;
 import com.vocco.api.domain.usuario.UsuarioRepository;
 import com.vocco.api.domain.usuario.UsuarioService;
-import com.vocco.api.domain.usuario.dto.AuthenticationDTO;
-import com.vocco.api.domain.usuario.dto.LoginResponseDTO;
-import com.vocco.api.domain.usuario.dto.RegistroUsuarioDTO;
+import com.vocco.api.domain.usuario.dto.DadosAutenticacaoUsuario;
+import com.vocco.api.domain.usuario.dto.DadosRetornoLoginAdministrador;
+import com.vocco.api.domain.usuario.dto.DadosRetornoLoginEstudante;
+import com.vocco.api.domain.usuario.dto.DadosRegistroUsuario;
 import com.vocco.api.infra.email.EmailService;
 import com.vocco.api.infra.security.TokenService;
 import jakarta.validation.Valid;
@@ -13,13 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
-public class AuthenticationController {
+public class AutenticacaoController {
     @Autowired
     private UsuarioRepository repository;
     @Autowired
@@ -30,7 +30,7 @@ public class AuthenticationController {
     EmailService emailService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationController(@Lazy AuthenticationManager authenticationManager) {
+    public AutenticacaoController(@Lazy AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
@@ -48,13 +48,18 @@ public class AuthenticationController {
 //        }
 //    }
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO dados){
-       return  ResponseEntity.ok().body(service.login(dados));
+    @PostMapping("/estudante/login")
+    public ResponseEntity<DadosRetornoLoginEstudante> loginEstudante(@RequestBody @Valid DadosAutenticacaoUsuario dados){
+       return  ResponseEntity.ok().body(service.loginEstudante(dados));
     }
 
-    @PostMapping("/registrar")
-    public ResponseEntity registrar(@RequestBody @Valid RegistroUsuarioDTO dados){
+    @PostMapping("/administrador/login")
+    public ResponseEntity<DadosRetornoLoginAdministrador> loginAdministrador(@RequestBody @Valid DadosAutenticacaoUsuario dados){
+        return  ResponseEntity.ok().body(service.loginAdministrador(dados));
+    }
+
+    @PostMapping("/cadastro") //cadastro de um usuario sem ter uma entidade (admin ou estudante) associada
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosRegistroUsuario dados){
         if(this.repository.findByLogin(dados.login()) != null) return ResponseEntity.badRequest().body("Usuário já existente"); //verifica se ja não existe
 
         var encryptedPassword = new BCryptPasswordEncoder().encode(dados.senha());
