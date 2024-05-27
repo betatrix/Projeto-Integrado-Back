@@ -20,7 +20,7 @@ public class EmailService {
             message.setTo(para);
             message.setSubject("Vocco - Recuperação de Senha");
             message.setText("Acesse o código e digite uma nova senha " + url);
-            message.setFrom("adastechsup@outlook.com");
+            message.setFrom("voccosupp@outlook.com");
             emailSender.send(message);
             log.info("Email enviado");
         } catch (Exception e) {
