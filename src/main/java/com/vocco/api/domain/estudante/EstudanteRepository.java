@@ -11,4 +11,6 @@ public interface EstudanteRepository extends JpaRepository<Estudante, Long> {
     Estudante findAllByUsuarioId(Long id);
 
     Estudante getReferenceByUsuarioId(Long aLong);
+
+    boolean existsByEmail(String email);
 }

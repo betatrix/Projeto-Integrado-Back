@@ -13,4 +13,6 @@ public interface AdministradorRepository extends JpaRepository<Administrador, Lo
     Administrador findAllByUsuarioId(Long id);
 
     Administrador getReferenceByUsuarioId(Long aLong);
+
+    boolean existsByEmail(String email);
 }

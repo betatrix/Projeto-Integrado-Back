@@ -6,6 +6,7 @@ import com.vocco.api.domain.administrador.dto.DadosDetalhamentoAdministrador;
 import com.vocco.api.domain.administrador.dto.DadosListagemAdministrador;
 import com.vocco.api.domain.curso.dto.DadosListagemCurso;
 import com.vocco.api.domain.instituicao.Instituicao;
+import com.vocco.api.infra.exception.excecoesPersonalizadas.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -16,6 +17,9 @@ public class AdministradorService {
     private AdministradorRepository repository;
 
     public DadosDetalhamentoAdministrador cadastrar(DadosCadastroAdministrador dados){
+        if(repository.existsByEmail(dados.email())){
+            throw new ValidacaoException("Já existe uma conta cadastrada com esse email!");
+        }
         Administrador administrador = new Administrador(dados);
         repository.save(administrador);
         return new DadosDetalhamentoAdministrador(administrador);
