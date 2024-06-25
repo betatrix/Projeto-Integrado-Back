@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 
 @Configuration
@@ -33,6 +34,7 @@ public class SecurityConfigurations {
         configuration.addAllowedOrigin("*"); // Permitir todas as origens
         configuration.addAllowedMethod("*"); // Permitir todos os métodos (GET, POST, PUT, etc.)
         configuration.addAllowedHeader("*"); // Permitir todos os cabeçalhos
+        configuration.addAllowedOriginPattern("*");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -45,17 +47,10 @@ public class SecurityConfigurations {
         return http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth                                                   //quais requisições http que serão autorizadas
-//                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/auth/registrar").permitAll()     //todos os usuarios podem acessar a parte e registrar
-//                        .requestMatchers(HttpMethod.POST, "/estudante/cadastro").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/administrador/cadastro").permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()     //swagger
-//                        //.requestMatchers(HttpMethod.POST, "/curso").hasAuthority("admin")  //hasRole não funfa
-//                        .anyRequest().authenticated()
+                .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
+                .addFilterBefore(new CorsFilter(corsConfigurationSource()), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
