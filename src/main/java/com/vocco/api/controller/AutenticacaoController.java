@@ -72,7 +72,7 @@ public class AutenticacaoController {
     @PostMapping("/esqueceuSenha")
     public ResponseEntity<?> esqueceuSenha(@RequestParam String email) {
         String token = service.criarTokenRecuperacaoSenha(email);
-        String url = "https://vocco.vercel.app/reset-password?token=" + token;
+        String url = "https://vocco.vercel.app/new-password?token=" + token;
         emailService.enviarEmailRecuperacaoSenha(email, url);
         return ResponseEntity.ok("Acesse o link gerado em seu email para gerar uma nova senha.");
     }
