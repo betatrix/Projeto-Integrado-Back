@@ -6,6 +6,7 @@ import com.vocco.api.domain.curso_instituicao.dto.DadosAtualizacaoInstituicaoCur
 import com.vocco.api.domain.curso_instituicao.dto.DadosCadastroCursoInstituicao;
 import com.vocco.api.domain.curso_instituicao.dto.DadosDetalhamentoCursoInstituicao;
 import com.vocco.api.domain.instituicao.dto.DadosDetalhamentoInstituicao;
+import com.vocco.api.domain.instituicao.dto.DadosListagemInstituicaoEMecCurso;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,11 @@ public class CursoInstituicaoController {
     @GetMapping("/curso/{id}")
     public ResponseEntity<List<DadosDetalhamentoInstituicao>> buscarInstituicoesPorCurso(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.buscarInstituicoesPorCurso(id));
+    }
+
+    @GetMapping("/curso/mec/{id}")
+    public ResponseEntity<List<DadosListagemInstituicaoEMecCurso>> buscarInstituicoesPorCursoComNotaMec(@PathVariable Long id) {
+        return ResponseEntity.ok().body(service.buscarInstituicoesPorCursoComNotaMec(id));
     }
 
     @DeleteMapping("/{id}")

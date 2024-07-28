@@ -9,6 +9,7 @@ import com.vocco.api.domain.curso_instituicao.dto.DadosDetalhamentoCursoInstitui
 import com.vocco.api.domain.instituicao.Instituicao;
 import com.vocco.api.domain.instituicao.InstituicaoRepository;
 import com.vocco.api.domain.instituicao.dto.DadosDetalhamentoInstituicao;
+import com.vocco.api.domain.instituicao.dto.DadosListagemInstituicaoEMecCurso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,14 @@ public class CursoInstituicaoService {
 
     public List<DadosDetalhamentoCursoInstituicao> listar(){
         return repository.findAll().stream().map(DadosDetalhamentoCursoInstituicao::new).toList();
+    }
+
+    public List<DadosListagemInstituicaoEMecCurso> buscarInstituicoesPorCursoComNotaMec(Long cursoId){
+        return repository.findAllByCursoId(cursoId)
+                .stream()
+                .filter(ci -> ci.getInstituicao().isAtivo())
+                .map(ci -> new DadosListagemInstituicaoEMecCurso(ci.getInstituicao(), ci.getNotaMec()))
+                .collect(Collectors.toList());
     }
 
     public List<DadosDetalhamentoCurso> buscarCursosPorInstituicao(Long instituicaoId){
