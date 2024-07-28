@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface ResultadoPerfilRepository extends JpaRepository<ResultadoPerfil, Long> {
     List<ResultadoPerfil> findAllByResultadoId(Long resultadoId);
+
 }

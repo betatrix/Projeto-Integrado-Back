@@ -1,11 +1,8 @@
 package com.vocco.api.controller;
 
 import com.vocco.api.domain.estudante_teste.EstudanteTesteService;
-import com.vocco.api.domain.estudante_teste.dto.DadosCadastroEstudanteTeste;
 import com.vocco.api.domain.estudante_teste.dto.DadosDetalhamentoEstudanteTeste;
-import com.vocco.api.domain.estudante_teste.dto.DadosListagemEstudanteTeste;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
+import com.vocco.api.domain.estudante_teste.dto.DadosListagemEstudanteTestePerfis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +24,13 @@ public class EstudanteTesteController {
 //    }
 
     @GetMapping("teste/{estudanteId}")
-    public ResponseEntity<List<DadosListagemEstudanteTeste>> listar(@PathVariable Long estudanteId){
+    public ResponseEntity<List<DadosListagemEstudanteTestePerfis>> listar(@PathVariable Long estudanteId){
         return ResponseEntity.ok().body(service.listarTestesDeEstudante(estudanteId));
+    }
+
+    @GetMapping("teste/perfis/{estudanteId}")
+    public ResponseEntity<List<String>> listarPerfisMaisRecorrentes(@PathVariable Long estudanteId){
+        return ResponseEntity.ok().body(service.listarPerfisMaisRecorrentesPorUsuarioId(estudanteId));
     }
 
     @GetMapping("/{id}")
