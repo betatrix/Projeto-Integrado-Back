@@ -79,6 +79,11 @@ public class EstudanteTesteService {
         return repository.findAll().size();
     }
 
+    public Integer contarTestesPorEstudante(Long usuarioId){
+        Estudante estudante = estudanteRepository.getReferenceByUsuarioId(usuarioId);
+        return repository.findByEstudanteId(estudante.getId()).size();
+    }
+
     public DadosDetalhamentoEstudanteTeste detalhar(Long id){
         return new DadosDetalhamentoEstudanteTeste(repository.getReferenceById(id));
     }

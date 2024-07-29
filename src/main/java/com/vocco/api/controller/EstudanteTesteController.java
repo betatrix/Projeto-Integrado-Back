@@ -43,4 +43,9 @@ public class EstudanteTesteController {
         return ResponseEntity.ok().body(service.contar());
     }
 
+    @GetMapping("contagem/{estudanteId}")
+    public ResponseEntity<Integer> contarTestesPorEstudante(@PathVariable Long estudanteId){
+        return ResponseEntity.ok().body(service.contarTestesPorEstudante(estudanteId));
+    }
+
 }
