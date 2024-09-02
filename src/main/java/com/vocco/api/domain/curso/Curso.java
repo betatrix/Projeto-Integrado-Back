@@ -3,6 +3,7 @@ package com.vocco.api.domain.curso;
 import com.vocco.api.domain.area.Area;
 import com.vocco.api.domain.curso.dto.DadosAtualizacaoCurso;
 import com.vocco.api.domain.curso.dto.DadosCadastroCurso;
+import com.vocco.api.domain.instituicao.TipoInstituicaoCurso;
 import com.vocco.api.domain.perfil.Perfil;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,6 +28,8 @@ public class Curso {
     private String descricao;
     private Boolean ativo;
     @Enumerated(EnumType.STRING)
+    private TipoInstituicaoCurso tipo;
+    @Enumerated(EnumType.STRING)
     private NivelEmpregabilidade empregabilidade; // Necessário verificar
     private List<String> possiveisCarreiras; //Talvez transformar carreira em uma entidade
     @ManyToOne
@@ -41,6 +44,7 @@ public class Curso {
         this.possiveisCarreiras = dados.possiveisCarreiras();
         this.area = area;
         this.perfil = perfil;
+        this.tipo = dados.tipo();
     }
 
     public void excluir(){
@@ -50,6 +54,7 @@ public class Curso {
         atribuirSeForNaoNulo(dados.descricao(), this::setDescricao);
         atribuirSeForNaoNulo(dados.empregabilidade(), this::setEmpregabilidade);
         atribuirSeForNaoNulo(dados.possiveisCarreiras(), this::setPossiveisCarreiras);
+        atribuirSeForNaoNulo(dados.tipo(), this::setTipo);
     }
 
     private <T> void atribuirSeForNaoNulo(T valor, Consumer<T> setter) {
