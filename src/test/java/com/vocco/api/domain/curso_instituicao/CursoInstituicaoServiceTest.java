@@ -12,6 +12,7 @@ import com.vocco.api.domain.curso_instituicao.dto.DadosDetalhamentoCursoInstitui
 import com.vocco.api.domain.endereco.dto.DadosCadastroEndereco;
 import com.vocco.api.domain.instituicao.Instituicao;
 import com.vocco.api.domain.instituicao.InstituicaoRepository;
+import com.vocco.api.domain.instituicao.TipoInstituicaoCurso;
 import com.vocco.api.domain.instituicao.dto.DadosCadastroInstituicao;
 import com.vocco.api.domain.instituicao.dto.DadosDetalhamentoInstituicao;
 import com.vocco.api.domain.perfil.Perfil;
@@ -69,6 +70,7 @@ class CursoInstituicaoServiceTest {
                         "Descrição do curso",
                         1L,
                         1L,
+                        TipoInstituicaoCurso.SUPERIOR,
                         NivelEmpregabilidade.ALTA,
                         Arrays.asList("Carreira 1", "Carreira 2")
                 ),
@@ -92,6 +94,7 @@ class CursoInstituicaoServiceTest {
                         "IE",
                         BigDecimal.valueOf(4.5),
                         "SISU",
+                        TipoInstituicaoCurso.SUPERIOR,
                         dadosEndereco
                 )
         );

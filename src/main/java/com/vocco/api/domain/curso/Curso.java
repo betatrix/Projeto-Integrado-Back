@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 @Entity
 @Table
 public class Curso {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

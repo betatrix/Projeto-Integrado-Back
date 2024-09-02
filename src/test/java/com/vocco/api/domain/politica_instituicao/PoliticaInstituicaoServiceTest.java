@@ -3,6 +3,7 @@ package com.vocco.api.domain.politica_instituicao;
 import com.vocco.api.domain.endereco.dto.DadosCadastroEndereco;
 import com.vocco.api.domain.instituicao.Instituicao;
 import com.vocco.api.domain.instituicao.InstituicaoRepository;
+import com.vocco.api.domain.instituicao.TipoInstituicaoCurso;
 import com.vocco.api.domain.instituicao.dto.DadosCadastroInstituicao;
 import com.vocco.api.domain.instituicao.dto.DadosListagemInstituicao;
 import com.vocco.api.domain.politica.Politica;
@@ -76,6 +77,7 @@ class PoliticaInstituicaoServiceTest {
                 "UF",
                 BigDecimal.valueOf(4.5),
                 "SISU",
+                TipoInstituicaoCurso.SUPERIOR,
                 dadosCadastroEndereco
         );
 
