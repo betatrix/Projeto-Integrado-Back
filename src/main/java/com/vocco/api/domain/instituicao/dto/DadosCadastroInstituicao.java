@@ -17,7 +17,7 @@ public record DadosCadastroInstituicao(
         String sigla,
         BigDecimal notaMec,
         String formaIngresso,
-        TipoInstituicaoCurso tpo,
+        TipoInstituicaoCurso tipo,
         @NotNull
         @Valid
         DadosCadastroEndereco endereco

@@ -39,7 +39,7 @@ public class Instituicao {
         this.notaMec = dados.notaMec();
         this.sigla = dados.sigla();
         this.formaIngresso = dados.formaIngresso();
-        this.tipo = dados.tpo();
+        this.tipo = dados.tipo();
         this.ativo = true;
         this.endereco = new Endereco(dados.endereco());
     }
