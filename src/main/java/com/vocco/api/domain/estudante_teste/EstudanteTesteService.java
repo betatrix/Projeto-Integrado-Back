@@ -48,8 +48,8 @@ public class EstudanteTesteService {
         return registrosDeTestes.stream().map(estudanteTeste -> {
             Resultado resultado = resultadoRepository.findByEstudanteTesteId(estudanteTeste.getId());
             List<ResultadoPerfil> resultadoPerfis = resultadoPerfilRepository.findAllByResultadoId(resultado.getId());
-            List<Perfil> perfis = resultadoPerfis.stream().map(ResultadoPerfil::getPerfil).toList();
-            return new DadosListagemEstudanteTestePerfis(estudanteTeste, perfis);
+//            List<Perfil> perfis = resultadoPerfis.stream().map(ResultadoPerfil::getPerfil).toList();
+            return new DadosListagemEstudanteTestePerfis(estudanteTeste, resultadoPerfis);
         }).toList();
     }
 
