@@ -10,6 +10,6 @@ public record DadosListagemAdministrador(
         String celular
 ) {
     public DadosListagemAdministrador(Administrador administrador){
-        this(administrador.getId(), administrador.getNome(), administrador.getEmail(), administrador.getCargo(), administrador.getCelular());
+        this(administrador.getId(), administrador.getNome(), administrador.getUsuario().getLogin(), administrador.getCargo(), administrador.getCelular());
     }
 }
