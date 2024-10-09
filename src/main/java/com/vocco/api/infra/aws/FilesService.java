@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class FilesService{
 
-    @Value("${bucketName}")
+    @Value("${aws.s3.bucketName}")
     private String bucketName;
     private  final AmazonS3 s3;
     @Autowired

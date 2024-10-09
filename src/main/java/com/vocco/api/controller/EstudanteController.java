@@ -21,7 +21,7 @@ public class EstudanteController {
     @Autowired
     private EstudanteService service;
 
-    @PostMapping("adicionarFoto")
+    @PostMapping("/adicionarFoto")
     public DadosDetalhamentoEstudante adicionarFoto(@RequestParam Long id, @Valid MultipartFile arquivo){
         return service.adicionarFoto(id, arquivo);
     }
