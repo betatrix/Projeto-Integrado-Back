@@ -27,6 +27,9 @@ public class EstudanteService {
         if(repository.existsByEmail(dados.email())){
             throw new ValidacaoException("Já existe uma conta cadastrada com esse email!");
         }
+        if (dados.email().contains("@vocco.com")) {
+            throw new ValidacaoException("Esse email não está disponível. Insira um email com um domínio válido.");
+        }
         Estudante estudante = new Estudante(dados);
         repository.save(estudante);
         return new DadosDetalhamentoEstudante(estudante);
