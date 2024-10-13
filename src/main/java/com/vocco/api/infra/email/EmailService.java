@@ -4,7 +4,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -47,7 +46,7 @@ public class EmailService {
                     + "<p>Defina uma nova senha clicando no botão abaixo:</p>"
                     + "<div class='button-container'><a href=\"" + url + "\" class='button'>Redefinir Senha</a></div>"
                     + "<p>Se você não reconhece esta solicitação ou não deseja alterar sua senha, basta ignorar esta mensagem.</p>"
-                    + "<p>Em caso de dúvidas, entre em contato com o nosso suporte: <a href='mailto:voccosupp@outlook.com'>voccosupp@outlook.com</a></p>"
+                    + "<p>Em caso de dúvidas, entre em contato com o nosso suporte: <a href='mailto:voccosupp@gmail.com'>voccosupp@gmail.com</a></p>"
                     + "</div>"
                     + "<div class='footer'>"
                     + "<p>Esta é uma mensagem automática, por favor, não responda.</p>"
@@ -59,7 +58,7 @@ public class EmailService {
             helper.setTo(para);
             helper.setSubject("Vocco - Recuperação de Senha");
             helper.setText(htmlMsg, true); // Set to true to indicate the email body is HTML
-            helper.setFrom("voccosupp@outlook.com");
+            helper.setFrom("voccosupp@gmail.com");
             helper.setReplyTo("no-reply@vocco.com"); // Set the Reply-To header
 
             emailSender.send(mimeMessage);
